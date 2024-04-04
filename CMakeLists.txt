@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.27)
 project(SDLForms)
+file(COPY Fonts/font.ttf
+        DESTINATION ./)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -18,6 +20,8 @@ add_executable(SDLForms main.cpp
         TestForm1.cpp
         TestForm1.h
         Containers/Vector1.h
+        Graphics/TextRenderer.cpp
+        Graphics/TextRenderer.h
 )
 
 target_link_libraries(

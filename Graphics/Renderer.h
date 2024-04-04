@@ -11,7 +11,6 @@ namespace Graphics
     class Renderer
     {
         public:
-
             void DrawLine(Containers::Vector2* pos1, Containers::Vector2* pos2);
 
             void DrawRect(Containers::Vector2* position, Containers::Vector2* size);
@@ -33,8 +32,10 @@ namespace Graphics
 
             void SetColor(Graphics::ColorEnum ecolor);
 
-        private:
+            SDL_Renderer* GetSDLRenderer();
 
+        private:
+            bool isFontOpened;
             SDL_Window *parentWindow;
             SDL_Renderer *sdlRenderer;
     };

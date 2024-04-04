@@ -8,6 +8,7 @@
 #include "../Graphics/Renderer.h"
 #include "../Graphics/ColorManager.h"
 #include "../Containers/Vector1.h"
+#include "../Graphics/TextRenderer.h"
 
 #ifndef SDLFORMS_CONTROLS_H
 #define SDLFORMS_CONTROLS_H
@@ -50,6 +51,29 @@ namespace Forms {
     private:
         Graphics::Renderer *assignedRenderer;
     };
+
+    class Label : public IDrawable {
+    public:
+        void Draw() override;
+
+    public:
+        Containers::Vector2 *Location;
+        Containers::Vector2 *Size;
+        bool *AutoSize;
+        BorderStyle::BorderStyleEnum BorderStyle;
+        Graphics::Color *BackgroundColor;
+        Graphics::Color *ForegroundColor;
+
+        Label(Graphics::Renderer *renderer, Graphics::TextRenderer *textRenderer);
+
+        ~Label();
+
+    private:
+        Graphics::Renderer *assignedRenderer;
+        Graphics::TextRenderer *assignedTextRenderer;
+    };
+
+
 }
 
 #endif //SDLFORMS_CONTROLS_H

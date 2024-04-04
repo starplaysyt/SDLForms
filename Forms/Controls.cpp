@@ -41,7 +41,7 @@ namespace Forms
         delete BackgroundColor;
     }
     //#endregion
-    //TODO: Create Draw Method
+    //DONE: Create Draw Method
 
     //#region Circle Methods
     Circle::Circle(Graphics::Renderer *renderer) {
@@ -77,6 +77,34 @@ namespace Forms
         delete BackgroundColor;
     }
     //#endregion
-    //TODO: Create Draw Method
+    //DONE: Create Draw Method
+
+    //#region Label Methods
+    Label::Label(Graphics::Renderer *renderer, Graphics::TextRenderer *textRenderer) {
+        assignedRenderer = renderer;
+        assignedTextRenderer = textRenderer;
+        Location = new Containers::Vector2;
+        Size = new Containers::Vector2;
+        AutoSize = new bool();
+        BorderStyle = BorderStyle::None;
+        ForegroundColor = new Graphics::Color();
+        BackgroundColor = new Graphics::Color();
+    }
+
+    void Label::Draw() {
+        std::cout << "label drawing started" << std::endl;
+        assignedTextRenderer->SetRendererColor(*ForegroundColor);
+        assignedTextRenderer->RenderText("testText1", 30, 30);
+    }
+
+    Label::~Label() {
+        delete Location;
+        delete Size;
+        delete ForegroundColor;
+        delete BackgroundColor;
+        delete AutoSize;
+    }
+
+    //#endregion
 
 }

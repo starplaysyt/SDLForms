@@ -23,10 +23,18 @@ void TestForm1::InitializeComponent() {
     circle1->ForegroundColor->SetColor(Graphics::Green);
     circle1->BorderStyle = BorderStyle::FixedSingle;
     Controls->push_back(static_cast<Forms::IDrawable*>(circle1));
+
+    label = new Forms::Label(renderer, textRenderer);
+    label->Location->Fill(100,100);
+    label->Size->Fill(100,100);
+    label->BackgroundColor->SetColor(Graphics::Red);
+    label->ForegroundColor->SetColor(Graphics::Blue);
+    Controls->push_back(static_cast<Forms::IDrawable*>(label));
 }
 
 void TestForm1::Close() {
     delete rect1;
     delete circle1;
+    delete label;
     Forms::Form::Close();
 }

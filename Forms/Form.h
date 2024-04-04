@@ -29,6 +29,7 @@ namespace Forms {
         Graphics::Color *BackgroundColor;
 
         Graphics::Renderer *renderer;
+        Graphics::TextRenderer *textRenderer;
 
         std::vector<IDrawable*> *Controls;
 

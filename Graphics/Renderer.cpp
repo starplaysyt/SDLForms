@@ -123,3 +123,7 @@ void Renderer::DrawCircle(Containers::Vector2 *centre, int radius) {
 void Renderer::ClearRenderer() {
     SDL_RenderClear(sdlRenderer);
 }
+
+SDL_Renderer *Renderer::GetSDLRenderer() {
+    return sdlRenderer;
+}

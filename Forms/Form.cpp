@@ -42,6 +42,7 @@ void Form::StartWindowLoop()  { //starting loop sector
 }
 
 Form::Form(std::string title, Containers::Vector2 *position, Containers::Vector2 *size) { //parametrized constructor
+    TTF_Init();
     this->Location = position;
     this->Size = size;
     this->title = title;
@@ -50,6 +51,9 @@ Form::Form(std::string title, Containers::Vector2 *position, Containers::Vector2
     sdlRenderer = SDL_CreateRenderer(window, -1, 0);
 
     renderer = new Graphics::Renderer(sdlRenderer, window);
+    textRenderer = new Graphics::TextRenderer(renderer, window);
+    textRenderer->OpenFontFile("font.ttf", 24);
+
     Controls = new std::vector<IDrawable*>();
 
     BackgroundColor = new Graphics::Color();
@@ -60,6 +64,7 @@ Form::Form(std::string title, Containers::Vector2 *position, Containers::Vector2
 
 
 void Form::Close() {
+    textRenderer->CloseFontFile();
     SDL_DestroyRenderer(sdlRenderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

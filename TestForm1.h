@@ -14,6 +14,7 @@ class TestForm1 : public Forms::Form  {
     private:
         Forms::Rectangle *rect1;
         Forms::Circle *circle1;
+        Forms::Label *label;
 
     public:
         void InitializeComponent();
