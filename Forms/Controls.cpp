@@ -89,12 +89,20 @@ namespace Forms
         BorderStyle = BorderStyle::None;
         ForegroundColor = new Graphics::Color();
         BackgroundColor = new Graphics::Color();
+        Text = new std::string();
     }
 
     void Label::Draw() {
-        //std::cout << "test";
-        assignedTextRenderer->SetRendererColor(*ForegroundColor);
-        assignedTextRenderer->RenderText("testText1", 30, 30);
+        assignedTextRenderer->SetRendererColor(ForegroundColor);
+        if (*AutoSize)
+        {
+
+        }
+        else
+        {
+
+        }
+        assignedTextRenderer->RenderTextWithBackColor(*Text, Location->x, Location->y, BackgroundColor);
     }
 
     Label::~Label() {
@@ -103,6 +111,7 @@ namespace Forms
         delete ForegroundColor;
         delete BackgroundColor;
         delete AutoSize;
+        delete Text;
     }
 
     //#endregion

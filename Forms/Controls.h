@@ -63,6 +63,7 @@ namespace Forms {
         BorderStyle::BorderStyleEnum BorderStyle;
         Graphics::Color *BackgroundColor;
         Graphics::Color *ForegroundColor;
+        std::string *Text;
 
         Label(Graphics::Renderer *renderer, Graphics::TextRenderer *textRenderer);
 

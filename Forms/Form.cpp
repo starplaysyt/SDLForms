@@ -53,7 +53,7 @@ Form::Form(std::string title, Containers::Vector2 *position, Containers::Vector2
 
     window = SDL_CreateWindow(title.c_str(), position->x, position->y, size->x, size->y, 0);
     sdlRenderer = SDL_CreateRenderer(window, -1, 0);
-
+    SDL_SetRenderDrawBlendMode(sdlRenderer, SDL_BLENDMODE_BLEND);
     renderer = new Graphics::Renderer(sdlRenderer, window);
     textRenderer = new Graphics::TextRenderer(renderer, window);
     textRenderer->OpenFontFile("font.ttf", 24);
@@ -69,6 +69,7 @@ Form::Form(std::string title, Containers::Vector2 *position, Containers::Vector2
 
 void Form::Close() {
     textRenderer->CloseFontFile();
+    TTF_Quit();
     SDL_DestroyRenderer(sdlRenderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -77,9 +78,8 @@ void Form::Close() {
 Form::~Form() {
     delete Location;
     delete Size;
-    SDL_DestroyRenderer(sdlRenderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+
+    Close();
     std::cout << "Form.cpp >>> Bye, world! Being good to know ya. Form extinction completed.";
 }
 

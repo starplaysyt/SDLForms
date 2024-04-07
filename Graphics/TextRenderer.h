@@ -15,17 +15,43 @@
 namespace Graphics {
     class TextRenderer {
     public:
+        /*
+         * Open
+         */
         void OpenFontFile(std::string path, int size);
 
         void CloseFontFile();
 
-        TextRenderer(Renderer *sdlRenderer, SDL_Window *window);
+        /*
+         * Creates instance of TextRenderer.
+         * Quick guide to use TextRenderer:
+         * - First things first you need to open font file, use OpenFontFile.
+         * - Use RenderText for simple rendering text on window.
+         * - Use CreateTextTexture and PasteTextTexture for advanced rendering.
+         * - After finishing working with TextRendering, use CloseFontFile to
+         *      close font file.
+         */
+        TextRenderer(Renderer *renderer, SDL_Window *window);
 
         void RenderText(std::string text, int x, int y);
 
+        /*
+         * Creates texture with text, advanced version of RenderText.
+         * Useful when size of text is needed, with PasteTextTexture.
+         */
+        SDL_Texture* CreateTextTexture(std::string text, SDL_Rect* dst);
+
+        /*
+         * Pastes texture with text into renderers' buffer.
+         * Useful with CreateTextTexture.
+         * Automatically destroys texture and dst.
+         */
+        void PasteTextTexture(SDL_Texture* texture, SDL_Rect* dst);
+
+
         ~TextRenderer();
 
-        void SetRendererColor(Color color);
+        void SetRendererColor(Color* color);
 
     private:
 

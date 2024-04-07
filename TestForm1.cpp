@@ -6,8 +6,6 @@
 
 
 void TestForm1::InitializeComponent() {
-
-
     rect1 = new Forms::Rectangle(renderer);
     rect1->Location->Fill(100,100);
     rect1->Size->Fill(100,100);
@@ -25,10 +23,11 @@ void TestForm1::InitializeComponent() {
     Controls->push_back(static_cast<Forms::IDrawable*>(circle1));
 
     label = new Forms::Label(renderer, textRenderer);
-    label->Location->Fill(100,100);
+    label->Location->Fill(100,50);
     label->Size->Fill(100,100);
-    label->BackgroundColor->SetColor(Graphics::Red);
-    label->ForegroundColor->SetColor(Graphics::Red);
+    label->BackgroundColor->SetColor(0,0,0,20);
+    label->ForegroundColor->SetColor(0,0,0,40);
+    *label->Text = "test";
     Controls->push_back(static_cast<Forms::IDrawable*>(label));
 }
 
