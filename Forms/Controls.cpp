@@ -92,7 +92,7 @@ namespace Forms
     }
 
     void Label::Draw() {
-        std::cout << "label drawing started" << std::endl;
+        //std::cout << "test";
         assignedTextRenderer->SetRendererColor(*ForegroundColor);
         assignedTextRenderer->RenderText("testText1", 30, 30);
     }

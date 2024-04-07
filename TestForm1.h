@@ -21,7 +21,7 @@ class TestForm1 : public Forms::Form  {
 
         TestForm1(std::string _title, Containers::Vector2* _position, Containers::Vector2* _size) : Forms::Form(_title, _position, _size){
             InitializeComponent();
-            std::cout << "CompForm" << std::endl;
+            std::cout << "TestForm.h >>> Child Form Initialization completed." << std::endl;
         }
 
         void Close();

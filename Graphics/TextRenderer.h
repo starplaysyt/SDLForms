@@ -6,7 +6,6 @@
 #define SDLFORMS_TEXTRENDERER_H
 
 #pragma once
-
 #include <iostream>
 #include "SDL.h"
 #include "SDL_ttf.h"
@@ -27,8 +26,6 @@ namespace Graphics {
         ~TextRenderer();
 
         void SetRendererColor(Color color);
-
-        Color GetRendererColor();
 
     private:
 

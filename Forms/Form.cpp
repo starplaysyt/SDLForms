@@ -3,7 +3,7 @@
 using namespace Forms;
 
 void Form::StartWindowLoop()  { //starting loop sector
-    std::cout << "WinLoopStarted" << std::endl;
+    std::cout << "Form.cpp >> Rendering Loop Started." << std::endl;
     auto *e = new SDL_Event();
     bool quit = false;
     while (!quit) {
@@ -34,11 +34,15 @@ void Form::StartWindowLoop()  { //starting loop sector
             renderer->ClearRenderer();
             for (int i = 0; i < Controls->size(); ++i)
             {
+                //std::cout << "renderer outline reached";
                 Controls->at(i)->Draw();
+                //std::cout << "renderer outline completed";
             }
             renderer->CompleteRender();
         }
     }
+    delete e;
+    std::cout << "Form.cpp >> Rendering Loop Stopped. Closeup action issued?" << std::endl;
 }
 
 Form::Form(std::string title, Containers::Vector2 *position, Containers::Vector2 *size) { //parametrized constructor
@@ -59,7 +63,7 @@ Form::Form(std::string title, Containers::Vector2 *position, Containers::Vector2
     BackgroundColor = new Graphics::Color();
     BackgroundColor->SetColor(Graphics::Black);
 
-    std::cout << "Form Init Completed" << std::endl;
+    std::cout << "Form.cpp >>> Parent Form Initialization completed." << std::endl;
 }
 
 
@@ -76,6 +80,6 @@ Form::~Form() {
     SDL_DestroyRenderer(sdlRenderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
-    std::cout << "Bye, bro!";
+    std::cout << "Form.cpp >>> Bye, world! Being good to know ya. Form extinction completed.";
 }
 

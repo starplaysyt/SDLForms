@@ -42,13 +42,13 @@ void TextRenderer::RenderText(std::string text, int x, int y) {
         std::cout << "Font File is not loaded."; //TODO: Make standard error output
         return;
     }
-    std::cout << "Test:: Text Output";
-    SDL_Color RpcColor;
-    RpcColor.r = ForegroundColor->r;
-    RpcColor.g = ForegroundColor->g;
-    RpcColor.b = ForegroundColor->b;
-    RpcColor.a = ForegroundColor->a;
-    SDL_Surface *surf = TTF_RenderUTF8_Solid(TextFont, "testText", RpcColor);
+    //std::cout << "Test:: Text Output";
+    SDL_Color *RpcColor = new SDL_Color();
+    RpcColor->r = ForegroundColor->r;
+    RpcColor->g = ForegroundColor->g;
+    RpcColor->b = ForegroundColor->b;
+    RpcColor->a = ForegroundColor->a;
+    SDL_Surface *surf = TTF_RenderUTF8_Solid(TextFont, "testText", *RpcColor);
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer->GetSDLRenderer(), surf);
     if (texture == 0){
         TTF_Quit();
@@ -74,5 +74,6 @@ void TextRenderer::RenderText(std::string text, int x, int y) {
     delete access;
     delete w; delete h;
     delete dst;
+    delete RpcColor;
 }
 

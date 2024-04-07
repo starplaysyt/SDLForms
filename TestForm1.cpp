@@ -28,7 +28,7 @@ void TestForm1::InitializeComponent() {
     label->Location->Fill(100,100);
     label->Size->Fill(100,100);
     label->BackgroundColor->SetColor(Graphics::Red);
-    label->ForegroundColor->SetColor(Graphics::Blue);
+    label->ForegroundColor->SetColor(Graphics::Red);
     Controls->push_back(static_cast<Forms::IDrawable*>(label));
 }
 
