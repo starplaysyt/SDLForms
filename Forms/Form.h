@@ -8,6 +8,7 @@
 #include "IDrawable.h"
 #include "Controls.h"
 #include "../Graphics/ColorManager.h"
+#include <thread>
 
 
 namespace Forms {

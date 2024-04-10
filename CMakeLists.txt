@@ -16,12 +16,11 @@ add_executable(SDLForms main.cpp
         Forms/Controls.cpp
         Forms/Controls.h
         Forms/IDrawable.h
-        Containers/BorderStyle.h
         TestForm1.cpp
         TestForm1.h
-        Containers/Vector1.h
         Graphics/TextRenderer.cpp
         Graphics/TextRenderer.h
+        Enums/FormEnums.h
 )
 
 target_link_libraries(

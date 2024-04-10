@@ -6,7 +6,14 @@ void Form::StartWindowLoop()  { //starting loop sector
     std::cout << "Form.cpp >> Rendering Loop Started." << std::endl;
     auto *e = new SDL_Event();
     bool quit = false;
+    std::chrono::system_clock::time_point startPoint = std::chrono::system_clock::now();
+    std::chrono::system_clock::time_point endPoint = std::chrono::system_clock::now();
+
+    std::chrono::system_clock::time_point FPSTracerStart = std::chrono::system_clock::now();
+
+    int FPSResult = 0;
     while (!quit) {
+        startPoint =  std::chrono::system_clock::now();
         while (SDL_PollEvent(e) != 0) {
             switch (e->type) {
                 case SDL_QUIT:
@@ -39,7 +46,23 @@ void Form::StartWindowLoop()  { //starting loop sector
                 //std::cout << "renderer outline completed";
             }
             renderer->CompleteRender();
+
+            //std::cout << "check" << std::endl;
         }
+        int TargetFPS = 60;
+        endPoint =  std::chrono::system_clock::now();
+        std::chrono::duration<double, std::milli> work_time = endPoint - startPoint;
+
+        std::chrono::duration<double, std::milli> FPSTarget = endPoint - FPSTracerStart;
+
+        if (work_time.count() < 200.0)
+        {
+            std::chrono::duration<double, std::milli> delta_ms(200.0 - work_time.count());
+            auto delta_ms_duration = std::chrono::duration_cast<std::chrono::milliseconds>(delta_ms);
+            std::this_thread::sleep_for(std::chrono::milliseconds(delta_ms_duration.count()));
+        }
+
+        //std::this_thread::sleep_for(std::chrono::milliseconds(16));
     }
     delete e;
     std::cout << "Form.cpp >> Rendering Loop Stopped. Closeup action issued?" << std::endl;

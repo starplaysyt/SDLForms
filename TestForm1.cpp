@@ -24,9 +24,11 @@ void TestForm1::InitializeComponent() {
 
     label = new Forms::Label(renderer, textRenderer);
     label->Location->Fill(100,50);
-    label->Size->Fill(100,100);
-    label->BackgroundColor->SetColor(0,0,0,20);
-    label->ForegroundColor->SetColor(0,0,0,40);
+    label->Size->Fill(120,200);
+    label->BackgroundColor->SetColor(0,255,255,255);
+    label->ForegroundColor->SetColor(0,0,0,255);
+    *label->AutoSize = true;
+    label->TextAllign = TextAllign::TopRight;
     *label->Text = "test";
     Controls->push_back(static_cast<Forms::IDrawable*>(label));
 }

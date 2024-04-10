@@ -90,19 +90,58 @@ namespace Forms
         ForegroundColor = new Graphics::Color();
         BackgroundColor = new Graphics::Color();
         Text = new std::string();
+        TextAllign = TextAllign::TopLeft;
     }
 
     void Label::Draw() {
         assignedTextRenderer->SetRendererColor(ForegroundColor);
-        if (*AutoSize)
-        {
-
+        SDL_Rect* dst = new SDL_Rect();
+        dst->x = Location->x;
+        dst->y = Location->y;
+        SDL_Texture* texture = assignedTextRenderer->CreateTextTexture(*Text, dst);
+        assignedRenderer->SetColor(BackgroundColor);
+        if(!*AutoSize) {
+            switch (TextAllign) {
+                case TextAllign::TopLeft:
+                    break;
+                case TextAllign::TopCenter:
+                    dst->x = dst->x + (Size->x - dst->w)/2;
+                    break;
+                case TextAllign::TopRight:
+                    dst->x = dst->x + (Size->x - dst->w);
+                    break;
+                case TextAllign::MiddleLeft:
+                    dst->y = dst->y + (Size->y - dst->h)/2;
+                    break;
+                case TextAllign::MiddleCenter:
+                    dst->y = dst->y + (Size->y - dst->h)/2;
+                    dst->x = dst->x + (Size->x - dst->w)/2;
+                    break;
+                case TextAllign::MiddleRight:
+                    dst->y = dst->y + (Size->y - dst->h)/2;
+                    dst->x = dst->x + (Size->x - dst->w);
+                    break;
+                case TextAllign::BottomLeft:
+                    dst->y = dst->y + (Size->y - dst->h);
+                    break;
+                case TextAllign::BottomCenter:
+                    dst->y = dst->y + (Size->y - dst->h);
+                    dst->x = dst->x + (Size->x - dst->w)/2;
+                    break;
+                case TextAllign::BottomRight:
+                    dst->y = dst->y + (Size->y - dst->h);
+                    dst->x = dst->x + (Size->x - dst->w);
+                    break;
+            }
         }
-        else
-        {
-
+        else {
+            Size->x = dst->w;
+            Size->y = dst->h;
         }
-        assignedTextRenderer->RenderTextWithBackColor(*Text, Location->x, Location->y, BackgroundColor);
+        assignedRenderer->FillRect(Location, Size);
+        assignedTextRenderer->PasteTextTexture(texture, dst);
+        SDL_DestroyTexture(texture);
+        delete dst;
     }
 
     Label::~Label() {

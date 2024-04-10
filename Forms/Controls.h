@@ -3,11 +3,10 @@
 //
 #pragma once
 #include "IDrawable.h"
-#include "../Containers/BorderStyle.h"
+#include "../Enums/FormEnums.h"
 #include "../Containers/Vector2.h"
 #include "../Graphics/Renderer.h"
 #include "../Graphics/ColorManager.h"
-#include "../Containers/Vector1.h"
 #include "../Graphics/TextRenderer.h"
 
 #ifndef SDLFORMS_CONTROLS_H
@@ -64,6 +63,7 @@ namespace Forms {
         Graphics::Color *BackgroundColor;
         Graphics::Color *ForegroundColor;
         std::string *Text;
+        TextAllign::TextAllignEnum TextAllign;
 
         Label(Graphics::Renderer *renderer, Graphics::TextRenderer *textRenderer);
 

@@ -44,7 +44,7 @@ namespace Graphics {
         /*
          * Pastes texture with text into renderers' buffer.
          * Useful with CreateTextTexture.
-         * Automatically destroys texture and dst.
+         * Doesnt destroy texture, you should destroy it manually.
          */
         void PasteTextTexture(SDL_Texture* texture, SDL_Rect* dst);
 
@@ -60,7 +60,6 @@ namespace Graphics {
         bool *isFontOpened;
         Renderer *renderer;
         SDL_Window *sdlWindow;
-        Color *BackgroundColor;
         Color *ForegroundColor;
     };
 }
