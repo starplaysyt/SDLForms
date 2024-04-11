@@ -8,11 +8,12 @@ void Form::StartWindowLoop()  { //starting loop sector
     bool quit = false;
     std::chrono::system_clock::time_point startPoint = std::chrono::system_clock::now();
     std::chrono::system_clock::time_point endPoint = std::chrono::system_clock::now();
-
+    int PTi = 0;
     std::chrono::system_clock::time_point FPSTracerStart = std::chrono::system_clock::now();
+    long midCD = 1;
 
-    int FPSResult = 0;
     while (!quit) {
+        PTi++;
         startPoint =  std::chrono::system_clock::now();
         while (SDL_PollEvent(e) != 0) {
             switch (e->type) {
@@ -46,23 +47,27 @@ void Form::StartWindowLoop()  { //starting loop sector
                 //std::cout << "renderer outline completed";
             }
             renderer->CompleteRender();
-
             //std::cout << "check" << std::endl;
         }
-        int TargetFPS = 60;
-        endPoint =  std::chrono::system_clock::now();
+
+        endPoint = std::chrono::system_clock::now();
         std::chrono::duration<double, std::milli> work_time = endPoint - startPoint;
 
-        std::chrono::duration<double, std::milli> FPSTarget = endPoint - FPSTracerStart;
-
-        if (work_time.count() < 200.0)
+        if (work_time.count() < 17.0) //5hz = 200ms sAs 60hz = 17 ms
         {
-            std::chrono::duration<double, std::milli> delta_ms(200.0 - work_time.count());
+            std::chrono::duration<double, std::milli> delta_ms(17.0 - work_time.count());
             auto delta_ms_duration = std::chrono::duration_cast<std::chrono::milliseconds>(delta_ms);
             std::this_thread::sleep_for(std::chrono::milliseconds(delta_ms_duration.count()));
+            midCD = (midCD + delta_ms_duration.count())/2;
         }
 
-        //std::this_thread::sleep_for(std::chrono::milliseconds(16));
+        std::chrono::duration<double, std::milli> FPSDur(endPoint - FPSTracerStart);
+        if (FPSDur.count() >= 1000)
+        {
+            std::cout << "FPS: " << PTi << "Delta msDur: " << midCD << std::endl;
+            FPSTracerStart = std::chrono::system_clock::now();
+            PTi = 0;
+        }
     }
     delete e;
     std::cout << "Form.cpp >> Rendering Loop Stopped. Closeup action issued?" << std::endl;
