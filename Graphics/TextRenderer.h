@@ -51,6 +51,10 @@ namespace Graphics {
 
         ~TextRenderer();
 
+        /*
+         * Sets not renderer color, but esp. TextRenderer color 'cos of special work circuit.
+         * To properly set exact Renderer color, ask assignated base renderer
+         */
         void SetRendererColor(Color* color);
 
     private:
