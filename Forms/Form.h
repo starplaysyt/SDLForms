@@ -40,10 +40,10 @@ namespace Forms {
 
         virtual void Close();
     };
+
     //TODO: Make getter and setter for Location and Size
 
     //DONE: Move that shit to more likely place
-
 }
 
 #endif

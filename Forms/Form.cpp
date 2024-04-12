@@ -53,6 +53,8 @@ void Form::StartWindowLoop()  { //starting loop sector
         endPoint = std::chrono::system_clock::now();
         std::chrono::duration<double, std::milli> work_time = endPoint - startPoint;
 
+        //TODO:Make changeable target FPS(hz)
+
         if (work_time.count() < 17.0) //5hz = 200ms sAs 60hz = 17 ms
         {
             std::chrono::duration<double, std::milli> delta_ms(17.0 - work_time.count());

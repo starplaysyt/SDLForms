@@ -20,7 +20,7 @@ void Renderer::SetColor(Graphics::Color *color) {
 
 //TODO: Make it smarter, shit is slow(maybe)
 void Renderer::SetColor(Graphics::ColorEnum ecolor) {
-    Color* color = new Color();
+    Color *color = new Color();
     color = ColorManager::GetColor(ecolor);
     SDL_SetRenderDrawColor(sdlRenderer, color->r, color->g, color->b, color->a);
     delete color;
