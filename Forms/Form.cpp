@@ -40,14 +40,11 @@ void Form::StartWindowLoop()  { //starting loop sector
             }
             renderer->SetColor(BackgroundColor);
             renderer->ClearRenderer();
-            for (int i = 0; i < Controls->size(); ++i)
+            for (auto & Control : *Controls)
             {
-                //std::cout << "renderer outline reached";
-                Controls->at(i)->Draw();
-                //std::cout << "renderer outline completed";
+                Control->Draw();
             }
             renderer->CompleteRender();
-            //std::cout << "check" << std::endl;
         }
 
         endPoint = std::chrono::system_clock::now();
@@ -75,20 +72,20 @@ void Form::StartWindowLoop()  { //starting loop sector
     std::cout << "Form.cpp >> Rendering Loop Stopped. Closeup action issued?" << std::endl;
 }
 
-Form::Form(std::string title, Containers::Vector2 *position, Containers::Vector2 *size) { //parametrized constructor
+Form::Form(const std::string& title, Containers::Vector2 *position, Containers::Vector2 *size) { //parametrized constructor
     TTF_Init();
     this->Location = position;
     this->Size = size;
     this->title = title;
 
-    window = SDL_CreateWindow(title.c_str(), position->x, position->y, size->x, size->y, 0);
+    window = SDL_CreateWindow(title.c_str(), *position->x, *position->y, *size->x, *size->y, 0);
     sdlRenderer = SDL_CreateRenderer(window, -1, 0);
     SDL_SetRenderDrawBlendMode(sdlRenderer, SDL_BLENDMODE_BLEND);
     renderer = new Graphics::Renderer(sdlRenderer, window);
     textRenderer = new Graphics::TextRenderer(renderer, window);
     textRenderer->OpenFontFile("font.ttf", 24);
 
-    Controls = new std::vector<IDrawable*>();
+    Controls = new std::vector<IControl*>();
 
     BackgroundColor = new Graphics::Color();
     BackgroundColor->SetColor(Graphics::Black);

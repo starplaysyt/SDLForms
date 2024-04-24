@@ -15,6 +15,7 @@ class TestForm1 : public Forms::Form  {
         Forms::Rectangle *rect1;
         Forms::Circle *circle1;
         Forms::Label *label;
+        Forms::Button *button;
 
     public:
         void InitializeComponent();
@@ -26,6 +27,8 @@ class TestForm1 : public Forms::Form  {
 
         void Close();
 };
+
+
 
 
 #endif //SDLFORMS_TESTFORM1_H

@@ -15,12 +15,15 @@ add_executable(SDLForms main.cpp
         Graphics/ColorManager.h
         Forms/Controls.cpp
         Forms/Controls.h
-        Forms/IDrawable.h
+        Forms/IControl.h
         TestForm1.cpp
         TestForm1.h
         Graphics/TextRenderer.cpp
         Graphics/TextRenderer.h
         Enums/FormEnums.h
+        Events/MouseMoveEventArgs.h
+        Events/MouseEventType.h
+        Events/MouseEventArgs.h
 )
 
 target_link_libraries(

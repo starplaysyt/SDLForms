@@ -4,6 +4,11 @@
 
 #include "TestForm1.h"
 
+namespace UserEvents {
+    void button1_OnClick(Forms::IControl *sender, Events::MouseEventArgs *args) {
+
+    }
+}
 
 void TestForm1::InitializeComponent() {
     rect1 = new Forms::Rectangle(renderer);
@@ -12,7 +17,7 @@ void TestForm1::InitializeComponent() {
     rect1->BackgroundColor->SetColor(Graphics::Red);
     rect1->ForegroundColor->SetColor(Graphics::Black);
     rect1->BorderStyle = BorderStyle::FixedSingle;
-    Controls->push_back(static_cast<Forms::IDrawable*>(rect1));
+    Controls->push_back(static_cast<Forms::IControl*>(rect1));
 
     circle1 = new Forms::Circle(renderer);
     circle1->Location->Fill(100,100);
@@ -20,7 +25,7 @@ void TestForm1::InitializeComponent() {
     circle1->BackgroundColor->SetColor(Graphics::White);
     circle1->ForegroundColor->SetColor(Graphics::Green);
     circle1->BorderStyle = BorderStyle::FixedSingle;
-    Controls->push_back(static_cast<Forms::IDrawable*>(circle1));
+    Controls->push_back(static_cast<Forms::IControl*>(circle1));
 
     label = new Forms::Label(renderer, textRenderer);
     label->Location->Fill(100,50);
@@ -30,7 +35,18 @@ void TestForm1::InitializeComponent() {
     *label->AutoSize = true;
     label->TextAllign = TextAllign::TopRight;
     *label->Text = "test";
-    Controls->push_back(static_cast<Forms::IDrawable*>(label));
+    Controls->push_back(static_cast<Forms::IControl*>(label));
+
+    button = new Forms::Button(renderer, textRenderer);
+    button->Location->Fill(100,100);
+    button->Size->Fill(120, 200);
+    button->BackgroundColor->SetColor(0,255,0,255);
+    button->ForegroundColor->SetColor(0,0,0,255);
+    *button->AutoSize = true;
+    button->TextAllign = TextAllign::TopRight;
+    *button->Text = "testFUCK";
+    button->OnClick = &UserEvents::button1_OnClick;
+    Controls->push_back(static_cast<Forms::IControl*>(button));
 }
 
 void TestForm1::Close() {
@@ -39,3 +55,4 @@ void TestForm1::Close() {
     delete label;
     Forms::Form::Close();
 }
+

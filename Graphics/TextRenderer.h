@@ -41,7 +41,7 @@ namespace Graphics {
         /*
          * Pastes texture with text into renderers' buffer.
          * Useful with CreateTextTexture.
-         * Doesnt destroy texture, you should destroy it manually.
+         * Doesn't destroy texture, you should destroy it manually, same as dst.
          */
         void PasteTextTexture(SDL_Texture* texture, SDL_Rect* dst);
 
@@ -49,8 +49,8 @@ namespace Graphics {
         ~TextRenderer();
 
         /*
-         * Sets not renderer color, but esp. TextRenderer color 'cos of special work circuit.
-         * To properly set exact Renderer color, ask assignated base renderer
+         * Sets not renderer color, but esp. TextRenderer color cos of special work circuit.
+         * To properly set exact Renderer color, ask assigned base renderer
          */
         void SetRendererColor(Color* color);
 

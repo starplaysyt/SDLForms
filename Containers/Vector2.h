@@ -4,22 +4,30 @@
 namespace Containers{
     struct Vector2 {
     public:
-        int x, y;
+        int *x, *y;
 
         Vector2() {
-            x = 0;
-            y = 0;
+            x = new int();
+            y = new int();
+            *x = 0;
+            *y = 0;
         }
 
         Vector2(int x, int y){
-            this->x = x;
-            this->y = y;
+            this->x = new int();
+            this->y = new int();
+            *this->x = x;
+            *this->y = y;
         }
 
-        void Fill(int x, int y)
-        {
-            this->x = x;
-            this->y = y;
+        void Fill(int x, int y){
+            *this->x = x;
+            *this->y = y;
+        }
+
+        ~Vector2() {
+            delete x;
+            delete y;
         }
     };
 }

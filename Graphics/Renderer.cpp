@@ -27,25 +27,25 @@ void Renderer::SetColor(Graphics::ColorEnum ecolor) {
 }
 
 void Renderer::DrawLine(Containers::Vector2* pos1, Containers::Vector2* pos2) {
-    SDL_RenderDrawLine(sdlRenderer, pos1->x, pos1->y, pos2->x, pos2->y);
+    SDL_RenderDrawLine(sdlRenderer, *pos1->x, *pos1->y, *pos2->x, *pos2->y);
 }
 
 void Renderer::DrawRect(Containers::Vector2* position, Containers::Vector2* size) {
     auto *rect = new SDL_Rect();
-    rect->x = position->x;
-    rect->y = position->y;
-    rect->w = size->x;
-    rect->h = size->y;
+    rect->x = *position->x;
+    rect->y = *position->y;
+    rect->w = *size->x;
+    rect->h = *size->y;
     SDL_RenderDrawRect(sdlRenderer, rect);
     delete rect;
 }
 
 void Renderer::FillRect(Containers::Vector2* position, Containers::Vector2* size) {
     auto *rect = new SDL_Rect();
-    rect->x = position->x;
-    rect->y = position->y;
-    rect->w = size->x;
-    rect->h = size->y;
+    rect->x = *position->x;
+    rect->y = *position->y;
+    rect->w = *size->x;
+    rect->h = *size->y;
     SDL_RenderFillRect(sdlRenderer, rect);
     delete rect;
 }
@@ -60,14 +60,14 @@ void Renderer::FillCircle(Containers::Vector2* centre, int radius) {
 
     while (*x >= *y)
     {
-        SDL_RenderDrawLine(sdlRenderer, centre->x - *x, centre->y - *y, centre->x, centre->y - *y);
-        SDL_RenderDrawLine(sdlRenderer, centre->x - *y, centre->y - *x, centre->x, centre->y - *x);
-        SDL_RenderDrawLine(sdlRenderer, centre->x - *x, centre->y + *y, centre->x, centre->y + *y);
-        SDL_RenderDrawLine(sdlRenderer, centre->x - *y, centre->y + *x, centre->x, centre->y + *x);
-        SDL_RenderDrawLine(sdlRenderer, centre->x + *x, centre->y - *y, centre->x, centre->y - *y);
-        SDL_RenderDrawLine(sdlRenderer, centre->x + *y, centre->y - *x, centre->x, centre->y - *x);
-        SDL_RenderDrawLine(sdlRenderer, centre->x + *y, centre->y + *x, centre->x, centre->y + *x);
-        SDL_RenderDrawLine(sdlRenderer, centre->x + *x, centre->y + *y, centre->x, centre->y + *y);
+        SDL_RenderDrawLine(sdlRenderer, *centre->x - *x, *centre->y - *y, *centre->x, *centre->y - *y);
+        SDL_RenderDrawLine(sdlRenderer, *centre->x - *y, *centre->y - *x, *centre->x, *centre->y - *x);
+        SDL_RenderDrawLine(sdlRenderer, *centre->x - *x, *centre->y + *y, *centre->x, *centre->y + *y);
+        SDL_RenderDrawLine(sdlRenderer, *centre->x - *y, *centre->y + *x, *centre->x, *centre->y + *x);
+        SDL_RenderDrawLine(sdlRenderer, *centre->x + *x, *centre->y - *y, *centre->x, *centre->y - *y);
+        SDL_RenderDrawLine(sdlRenderer, *centre->x + *y, *centre->y - *x, *centre->x, *centre->y - *x);
+        SDL_RenderDrawLine(sdlRenderer, *centre->x + *y, *centre->y + *x, *centre->x, *centre->y + *x);
+        SDL_RenderDrawLine(sdlRenderer, *centre->x + *x, *centre->y + *y, *centre->x, *centre->y + *y);
         if (*error <= 0)
         {
             ++*y;
@@ -96,14 +96,14 @@ void Renderer::DrawCircle(Containers::Vector2 *centre, int radius) {
 
     while (*x >= *y)
     {
-        SDL_RenderDrawPoint(sdlRenderer, centre->x + *x, centre->y - *y);
-        SDL_RenderDrawPoint(sdlRenderer, centre->x + *x, centre->y + *y);
-        SDL_RenderDrawPoint(sdlRenderer, centre->x - *x, centre->y - *y);
-        SDL_RenderDrawPoint(sdlRenderer, centre->x - *x, centre->y + *y);
-        SDL_RenderDrawPoint(sdlRenderer, centre->x + *y, centre->y - *x);
-        SDL_RenderDrawPoint(sdlRenderer, centre->x + *y, centre->y + *x);
-        SDL_RenderDrawPoint(sdlRenderer, centre->x - *y, centre->y - *x);
-        SDL_RenderDrawPoint(sdlRenderer, centre->x - *y, centre->y + *x);
+        SDL_RenderDrawPoint(sdlRenderer, *centre->x + *x, *centre->y - *y);
+        SDL_RenderDrawPoint(sdlRenderer, *centre->x + *x, *centre->y + *y);
+        SDL_RenderDrawPoint(sdlRenderer, *centre->x - *x, *centre->y - *y);
+        SDL_RenderDrawPoint(sdlRenderer, *centre->x - *x, *centre->y + *y);
+        SDL_RenderDrawPoint(sdlRenderer, *centre->x + *y, *centre->y - *x);
+        SDL_RenderDrawPoint(sdlRenderer, *centre->x + *y, *centre->y + *x);
+        SDL_RenderDrawPoint(sdlRenderer, *centre->x - *y, *centre->y - *x);
+        SDL_RenderDrawPoint(sdlRenderer, *centre->x - *y, *centre->y + *x);
 
         if (*error <= 0)
         {

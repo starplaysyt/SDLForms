@@ -5,7 +5,7 @@
 #include <iostream>
 #include <SDL.h>
 #include "../Graphics/Renderer.h"
-#include "IDrawable.h"
+#include "IControl.h"
 #include "Controls.h"
 #include "../Graphics/ColorManager.h"
 #include <thread>
@@ -32,9 +32,9 @@ namespace Forms {
         Graphics::Renderer *renderer;
         Graphics::TextRenderer *textRenderer;
 
-        std::vector<IDrawable*> *Controls;
+        std::vector<IControl*> *Controls;
 
-        Form(std::string title, Containers::Vector2 *position, Containers::Vector2 *size);
+        Form(const std::string& title, Containers::Vector2 *position, Containers::Vector2 *size);
 
         ~Form();
 
