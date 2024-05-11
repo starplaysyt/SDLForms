@@ -20,6 +20,10 @@ namespace Forms {
     public:
         void Draw() override;
 
+        void EventCheckup(Events::MouseEventType::MouseEventTypeEnum type, Events::MouseEventArgs *args) override;
+
+        bool IsMouseInside(Containers::Vector2 position) override;
+
     public:
         Containers::Vector2 *Location;
         Containers::Vector2 *Size;
@@ -28,6 +32,8 @@ namespace Forms {
         Graphics::Color *ForegroundColor;
 
         Rectangle(Graphics::Renderer *renderer);
+
+
 
         ~Rectangle();
 
@@ -38,6 +44,10 @@ namespace Forms {
     class Circle : public IControl {
     public:
         void Draw() override;
+
+        void EventCheckup(Events::MouseEventType::MouseEventTypeEnum type, Events::MouseEventArgs *args) override;
+
+        bool IsMouseInside(Containers::Vector2 position) override;
 
     public:
         Containers::Vector2 *Location;
@@ -57,6 +67,10 @@ namespace Forms {
     class Label : public IControl {
     public:
         void Draw() override;
+
+        void EventCheckup(Events::MouseEventType::MouseEventTypeEnum type, Events::MouseEventArgs *args) override;
+
+        bool IsMouseInside(Containers::Vector2 position) override;
 
     public:
         Containers::Vector2 *Location;

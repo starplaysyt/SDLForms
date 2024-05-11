@@ -56,7 +56,7 @@ SDL_Texture *TextRenderer::CreateTextTexture(std::string text, SDL_Rect *dst) {
         return nullptr;
     }
     SDL_FreeSurface(surf);
-    uint *format = new uint();
+    Uint32 *format = new Uint32();
     int *access = new int();
     int *w = new int();
     int *h = new int();

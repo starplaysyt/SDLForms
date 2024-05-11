@@ -12,9 +12,9 @@
 namespace Forms {
     class IControl {
     public:
-        virtual void Draw() {};
-        virtual void EventCheckup(Events::MouseEventType::MouseEventTypeEnum eventType, Events::MouseEventArgs* args) {};
-        virtual bool IsMouseInside(Containers::Vector2 position);
+        virtual void Draw() {}
+        virtual void EventCheckup(Events::MouseEventType::MouseEventTypeEnum eventType, Events::MouseEventArgs* args) {}
+        virtual bool IsMouseInside(Containers::Vector2 position) {return false; }
     };
 }
 #endif //SDLFORMS_ICONTROL_H

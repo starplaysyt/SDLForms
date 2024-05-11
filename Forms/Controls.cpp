@@ -16,6 +16,14 @@ namespace Forms
         ForegroundColor = new Graphics::Color();
     }
 
+    bool Rectangle::IsMouseInside(Containers::Vector2 position) {
+        return false;
+    }
+
+    void Rectangle::EventCheckup(Events::MouseEventType::MouseEventTypeEnum type, Events::MouseEventArgs *args) {
+
+    }
+
     void Rectangle::Draw() {
         switch (BorderStyle) {
             case BorderStyle::None:
@@ -51,6 +59,14 @@ namespace Forms
         BorderStyle = BorderStyle::None;
         ForegroundColor = new Graphics::Color();
         BackgroundColor = new Graphics::Color();
+    }
+
+    bool Circle::IsMouseInside(Containers::Vector2 position) {
+        return false;
+    }
+
+    void Circle::EventCheckup(Events::MouseEventType::MouseEventTypeEnum type, Events::MouseEventArgs *args) {
+
     }
 
     void Circle::Draw() {
@@ -91,6 +107,14 @@ namespace Forms
         BackgroundColor = new Graphics::Color();
         Text = new std::string();
         TextAllign = TextAllign::TopLeft;
+    }
+
+    bool Label::IsMouseInside(Containers::Vector2 position) {
+        return false;
+    }
+
+    void Label::EventCheckup(Events::MouseEventType::MouseEventTypeEnum type, Events::MouseEventArgs *args) {
+
     }
 
     void Label::Draw() {
@@ -178,7 +202,10 @@ namespace Forms
     bool Button::IsMouseInside(Containers::Vector2 position) {
         std::cout << position.x << " " << position.y << std::endl;
         if (*position.x > *Location->x && *position.x < *Location->x + *Size->x)
-            if (*position.y > *Location->y && *position.y < *Location->y + *Size->y)
+            if (*position.y > *Location->y && *position.y < *Location->y + *Size->y) {
+                return true;
+            }
+        return false;
     }
 
     void Button::EventCheckup(Events::MouseEventType::MouseEventTypeEnum type, Events::MouseEventArgs *args) {

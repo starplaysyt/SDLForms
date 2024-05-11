@@ -8,6 +8,7 @@
 #include "IControl.h"
 #include "Controls.h"
 #include "../Graphics/ColorManager.h"
+#include <vector>
 #include <thread>
 
 
