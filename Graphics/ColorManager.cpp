@@ -32,7 +32,7 @@ Color* ColorManager::GetColor(Graphics::ColorEnum color) {
         case Black: return new Color(0,0,0,255);
         case White: return new Color(255,255,255,255);
         default:
-            std::cout << "<ColorManager> This color don't supported.";
+            std::cout << "<ColorManager> This color is not supported.";
             return new Color(0,0,0,255);
     }
 }

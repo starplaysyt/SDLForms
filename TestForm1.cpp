@@ -5,7 +5,29 @@
 #include "TestForm1.h"
 
 namespace UserEvents {
-    void button1_OnClick(Forms::IControl *sender, Events::MouseEventArgs *args) {
+    void button1_OnClick(Forms::IControl *sender, SDL_MouseButtonEvent args) {
+        //TestForm1 *owner = (TestForm1*)sender->owner;
+        std::cout << "CLICKED!" << std::endl;
+    }
+
+    void button1_OnEnter(Forms::IControl *sender, SDL_MouseMotionEvent args) {
+        //std::cout << "enter" << std::endl;
+    }
+
+    void button1_OnMove(Forms::IControl *sender, SDL_MouseMotionEvent args) {
+        //std::cout << "moved" << std::endl;
+    }
+
+    void button1_OnLeft(Forms::IControl *sender, SDL_MouseMotionEvent args) {
+        //std::cout << "left" << std::endl;
+    }
+
+    void button1_OnMouseDown(Forms::IControl *sender, SDL_MouseButtonEvent args) {
+        std::cout << "Down" << std::endl;
+    }
+
+    void button1_OnMouseUp(Forms::IControl *sender, SDL_MouseButtonEvent args) {
+        std::cout << "Up" << (int)args.button << std::endl;
 
     }
 }
@@ -17,7 +39,7 @@ void TestForm1::InitializeComponent() {
     rect1->BackgroundColor->SetColor(Graphics::Red);
     rect1->ForegroundColor->SetColor(Graphics::Black);
     rect1->BorderStyle = BorderStyle::FixedSingle;
-    Controls->push_back(static_cast<Forms::IControl*>(rect1));
+    AddControl(rect1);
 
     circle1 = new Forms::Circle(renderer);
     circle1->Location->Fill(100,100);
@@ -25,7 +47,7 @@ void TestForm1::InitializeComponent() {
     circle1->BackgroundColor->SetColor(Graphics::White);
     circle1->ForegroundColor->SetColor(Graphics::Green);
     circle1->BorderStyle = BorderStyle::FixedSingle;
-    Controls->push_back(static_cast<Forms::IControl*>(circle1));
+    AddControl(circle1);
 
     label = new Forms::Label(renderer, textRenderer);
     label->Location->Fill(100,50);
@@ -35,18 +57,24 @@ void TestForm1::InitializeComponent() {
     *label->AutoSize = true;
     label->TextAllign = TextAllign::TopRight;
     *label->Text = "test";
-    Controls->push_back(static_cast<Forms::IControl*>(label));
+    AddControl(label);
 
     button = new Forms::Button(renderer, textRenderer);
     button->Location->Fill(100,100);
-    button->Size->Fill(120, 200);
+    button->Size->Fill(120, 120);
     button->BackgroundColor->SetColor(0,255,0,255);
     button->ForegroundColor->SetColor(0,0,0,255);
-    *button->AutoSize = true;
+    *button->AutoSize = false;
     button->TextAllign = TextAllign::TopRight;
     *button->Text = "testFUCK";
+    button->BorderStyle = BorderStyle::FixedSingle;
     button->OnClick = &UserEvents::button1_OnClick;
-    Controls->push_back(static_cast<Forms::IControl*>(button));
+    button->OnEnter = &UserEvents::button1_OnEnter;
+    button->OnMove = &UserEvents::button1_OnMove;
+    button->OnLeft = &UserEvents::button1_OnLeft;
+    button->OnMouseDown = &UserEvents::button1_OnMouseDown;
+    button->OnMouseUp = &UserEvents::button1_OnMouseUp;
+    AddControl(button);
 }
 
 void TestForm1::Close() {

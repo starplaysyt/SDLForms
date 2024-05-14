@@ -1,6 +1,7 @@
 //
 // Created by Vincent on 20.03.24.
 //
+
 #pragma once
 #include "IControl.h"
 #include "../Enums/FormEnums.h"
@@ -10,7 +11,8 @@
 #include "../Graphics/TextRenderer.h"
 #include "../Events/MouseEventArgs.h"
 #include "../Events/MouseEventType.h"
-#include "Form.h"
+#include "IOwner.h"
+
 
 #ifndef SDLFORMS_CONTROLS_H
 #define SDLFORMS_CONTROLS_H
@@ -20,9 +22,9 @@ namespace Forms {
     public:
         void Draw() override;
 
-        void EventCheckup(Events::MouseEventType::MouseEventTypeEnum type, Events::MouseEventArgs *args) override;
+        void EventCheckup(Uint32 type, SDL_Event *event) override;
 
-        bool IsMouseInside(Containers::Vector2 position) override;
+        bool IsMouseInside(Containers::Vector2 *position) override;
 
     public:
         Containers::Vector2 *Location;
@@ -45,9 +47,9 @@ namespace Forms {
     public:
         void Draw() override;
 
-        void EventCheckup(Events::MouseEventType::MouseEventTypeEnum type, Events::MouseEventArgs *args) override;
+        void EventCheckup(Uint32 type, SDL_Event *event) override;
 
-        bool IsMouseInside(Containers::Vector2 position) override;
+        bool IsMouseInside(Containers::Vector2 *position) override;
 
     public:
         Containers::Vector2 *Location;
@@ -68,9 +70,9 @@ namespace Forms {
     public:
         void Draw() override;
 
-        void EventCheckup(Events::MouseEventType::MouseEventTypeEnum type, Events::MouseEventArgs *args) override;
+        void EventCheckup(Uint32 type, SDL_Event *event) override;
 
-        bool IsMouseInside(Containers::Vector2 position) override;
+        bool IsMouseInside(Containers::Vector2 *position) override;
 
     public:
         Containers::Vector2 *Location;
@@ -96,13 +98,21 @@ namespace Forms {
 
         void Draw() override;
 
-        void EventCheckup(Events::MouseEventType::MouseEventTypeEnum type, Events::MouseEventArgs *args) override;
+        void EventCheckup(Uint32 type, SDL_Event *event) override;
 
-        bool IsMouseInside(Containers::Vector2 position) override;
+        bool IsMouseInside(Containers::Vector2 *position) override;
 
-        void (*OnClick) (IControl*, Events::MouseEventArgs*) { };
+        void (*OnClick) (IControl*, SDL_MouseButtonEvent) { };
 
-        void (*OnEnter) (IControl*, Events::MouseEventArgs*) { };
+        void (*OnEnter) (IControl*, SDL_MouseMotionEvent) { };
+
+        void (*OnMove) (IControl*, SDL_MouseMotionEvent) { };
+
+        void (*OnLeft) (IControl*, SDL_MouseMotionEvent) { };
+
+        void (*OnMouseDown) (IControl*, SDL_MouseButtonEvent) { };
+
+        void (*OnMouseUp) (IControl*, SDL_MouseButtonEvent) { };
 
     public:
         Containers::Vector2 *Location;

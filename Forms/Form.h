@@ -5,24 +5,28 @@
 #include <iostream>
 #include <SDL.h>
 #include "../Graphics/Renderer.h"
+#include "../Graphics/TextRenderer.h"
 #include "IControl.h"
 #include "Controls.h"
+#include "IOwner.h"
 #include "../Graphics/ColorManager.h"
 #include <vector>
 #include <thread>
 
 
-namespace Forms {
-    class Form {
+namespace Forms{
+    class Form : IOwner {
 
     private:
         SDL_Renderer *sdlRenderer;
         SDL_Window *window;
 
     public:
+        void AddControl(IControl* control);
+
         void StartWindowLoop();
 
-    protected:
+        bool *doClosing;
 
         Containers::Vector2 *Location;
         Containers::Vector2 *Size;
@@ -38,6 +42,8 @@ namespace Forms {
         Form(const std::string& title, Containers::Vector2 *position, Containers::Vector2 *size);
 
         ~Form();
+
+        virtual void EventCheckup(Uint32 type, SDL_Event *args);
 
         virtual void Close();
     };

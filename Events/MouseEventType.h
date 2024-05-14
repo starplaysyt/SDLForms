@@ -8,7 +8,7 @@
 namespace Events {
     namespace MouseEventType {
         enum MouseEventTypeEnum {
-            MOUSE_CLICK, MOUSE_MOVE
+            MOUSE_CLICK, MOUSE_MOVE, NONE
         };
     }
 }

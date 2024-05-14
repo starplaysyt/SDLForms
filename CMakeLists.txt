@@ -5,8 +5,6 @@ file(COPY Fonts/font.ttf
 
 set(CMAKE_CXX_STANDARD 17)
 
-
-
 add_executable(SDLForms main.cpp
         Forms/Form.cpp
         Forms/Form.h
@@ -26,6 +24,8 @@ add_executable(SDLForms main.cpp
         Events/MouseMoveEventArgs.h
         Events/MouseEventType.h
         Events/MouseEventArgs.h
+        Forms/IOwner.h
+        Events/BasicEventsAliases.h
 )
 
 if (WIN32)

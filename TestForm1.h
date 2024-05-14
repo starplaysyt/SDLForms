@@ -11,7 +11,7 @@
 #include "iostream"
 
 class TestForm1 : public Forms::Form  {
-    private:
+    public:
         Forms::Rectangle *rect1;
         Forms::Circle *circle1;
         Forms::Label *label;

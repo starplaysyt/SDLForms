@@ -1,8 +1,10 @@
 //
 // Created by Vincent on 20.03.24.
 //
-
+#pragma once
 #include "Controls.h"
+#include "../Events/BasicEventsAliases.h"
+//Totaly unknown why this happens, but it doesnt work without this
 
 namespace Forms
 {
@@ -16,11 +18,11 @@ namespace Forms
         ForegroundColor = new Graphics::Color();
     }
 
-    bool Rectangle::IsMouseInside(Containers::Vector2 position) {
+    bool Rectangle::IsMouseInside(Containers::Vector2 *position) {
         return false;
     }
 
-    void Rectangle::EventCheckup(Events::MouseEventType::MouseEventTypeEnum type, Events::MouseEventArgs *args) {
+    void Rectangle::EventCheckup(Uint32 type, SDL_Event *args) {
 
     }
 
@@ -61,11 +63,11 @@ namespace Forms
         BackgroundColor = new Graphics::Color();
     }
 
-    bool Circle::IsMouseInside(Containers::Vector2 position) {
+    bool Circle::IsMouseInside(Containers::Vector2 *position) {
         return false;
     }
 
-    void Circle::EventCheckup(Events::MouseEventType::MouseEventTypeEnum type, Events::MouseEventArgs *args) {
+    void Circle::EventCheckup(Uint32 type, SDL_Event *args) {
 
     }
 
@@ -109,11 +111,11 @@ namespace Forms
         TextAllign = TextAllign::TopLeft;
     }
 
-    bool Label::IsMouseInside(Containers::Vector2 position) {
+    bool Label::IsMouseInside(Containers::Vector2 *position) {
         return false;
     }
 
-    void Label::EventCheckup(Events::MouseEventType::MouseEventTypeEnum type, Events::MouseEventArgs *args) {
+    void Label::EventCheckup(Uint32 type, SDL_Event *args) {
 
     }
 
@@ -192,44 +194,80 @@ namespace Forms
         BackgroundColor = new Graphics::Color();
         Text = new std::string();
         TextAllign = TextAllign::TopLeft;
-        OnClick = { };
+        OnClick = &Events::BasicEventsAliases::MouseClickEvent;
+        OnEnter = &Events::BasicEventsAliases::MouseMotionEvent;
+        OnMove = &Events::BasicEventsAliases::MouseMotionEvent;
+        OnLeft = &Events::BasicEventsAliases::MouseMotionEvent;
+        OnMouseDown = &Events::BasicEventsAliases::MouseClickEvent;
+        OnMouseUp = &Events::BasicEventsAliases::MouseClickEvent;
         isMouseInside = new bool();
         isClicked = new bool();
         *isMouseInside = false;
         *isClicked = false;
     }
 
-    bool Button::IsMouseInside(Containers::Vector2 position) {
-        std::cout << position.x << " " << position.y << std::endl;
-        if (*position.x > *Location->x && *position.x < *Location->x + *Size->x)
-            if (*position.y > *Location->y && *position.y < *Location->y + *Size->y) {
+    bool Button::IsMouseInside(Containers::Vector2 *position) {
+        if (*position->x > *Location->x && *position->x < *Location->x + *Size->x)
+            if (*position->y > *Location->y && *position->y < *Location->y + *Size->y) {
                 return true;
             }
         return false;
     }
 
-    void Button::EventCheckup(Events::MouseEventType::MouseEventTypeEnum type, Events::MouseEventArgs *args) {
+    void Button::EventCheckup(Uint32 type, SDL_Event *event) {
         switch (type) {
-            case Events::MouseEventType::MOUSE_CLICK:
-
+            case 0: //nullevent code designed for leaving/not-encountered events or stuff
+                if (*isMouseInside) {
+                    *isMouseInside = false;
+                    if(event->type == SDL_MOUSEMOTION) OnLeft(this, event->motion); //idk what shit should happen for this checkup worked
+                }
+                if (*isClicked) {
+                    *isClicked = false;
+                }
                 break;
-            case Events::MouseEventType::MOUSE_MOVE:
-
+            case SDL_MOUSEBUTTONDOWN:
+                *isClicked = true;
+                OnMouseDown(this, event->button);
+                break;
+            case SDL_MOUSEBUTTONUP:
+                OnMouseUp(this, event->button);
+                if (*isClicked)
+                    OnClick(this, event->button);
+                *isClicked = false;
+            case SDL_MOUSEMOTION:
+                if (*isMouseInside) {
+                    OnMove(this, event->motion);
+                }
+                else {
+                    *isMouseInside = true;
+                    OnEnter(this, event->motion);
+                }
                 break;
             default:
-                std::cout << "Button " << Text << " >>> Unhandled event happened. It's not supported by the way." << std::endl;
+                std::cout << "Button " << *Text << " >>> Unhandled event happened. It's not supported by the way." << std::endl;
                 //TODO: REMOVE FUCKING SHIT, IT IS FUCKING WRONG(stupid cocksucker, it's designed for act like that, though)
+                //UTODO: It should work like that
                 break;
         }
     }
 
     void Button::Draw() {
         assignedTextRenderer->SetRendererColor(ForegroundColor);
+        assignedRenderer->SetColor(BackgroundColor);
+        if (*isMouseInside) {
+            assignedRenderer->SetColor(ForegroundColor);
+            assignedTextRenderer->SetRendererColor(BackgroundColor);
+        }
+        if (*isClicked) {
+            assignedRenderer->SetColor(Graphics::ColorManager::GetColor(Graphics::Green));
+            assignedTextRenderer->SetRendererColor(Graphics::ColorManager::GetColor(Graphics::White));
+        }
+
         auto* dst = new SDL_Rect();
         dst->x = *Location->x;
         dst->y = *Location->y;
         SDL_Texture* texture = assignedTextRenderer->CreateTextTexture(*Text, dst);
-        assignedRenderer->SetColor(BackgroundColor);
+
         if(!*AutoSize) {
             switch (TextAllign) {
                 case TextAllign::TopLeft:
@@ -269,6 +307,10 @@ namespace Forms
             *Size->y = dst->h;
         }
         assignedRenderer->FillRect(Location, Size);
+        if (BorderStyle == BorderStyle::FixedSingle) {
+            assignedRenderer->SetColor(ForegroundColor);
+            assignedRenderer->DrawRect(Location, Size);
+        }
         assignedTextRenderer->PasteTextTexture(texture, dst);
 
         //Destruct area
