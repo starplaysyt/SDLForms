@@ -1,10 +1,9 @@
 //
 // Created by Vincent on 20.03.24.
 //
-#pragma once
+
 #include "Controls.h"
-#include "../Events/BasicEventsAliases.h"
-//Totaly unknown why this happens, but it doesnt work without this
+#include "../Events/BasicEventsAliases.h" //Totaly unknown why this happens, but it doesnt work without this. Maybe it's cos of function pointers' shitty work
 
 namespace Forms
 {
@@ -19,6 +18,10 @@ namespace Forms
     }
 
     bool Rectangle::IsMouseInside(Containers::Vector2 *position) {
+        // if (*position->x > *Location->x && *position->x < *Location->x + *Size->x)
+        //     if (*position->y > *Location->y && *position->y < *Location->y + *Size->y) {
+        //         return true;
+        //     }
         return false;
     }
 
@@ -57,7 +60,7 @@ namespace Forms
     Circle::Circle(Graphics::Renderer *renderer) {
         assignedRenderer = renderer;
         Location = new Containers::Vector2();
-        Radius = new int();
+        Radius = new int(); *Radius = 0;
         BorderStyle = BorderStyle::None;
         ForegroundColor = new Graphics::Color();
         BackgroundColor = new Graphics::Color();
@@ -103,11 +106,12 @@ namespace Forms
         assignedTextRenderer = textRenderer;
         Location = new Containers::Vector2;
         Size = new Containers::Vector2;
-        AutoSize = new bool();
+        AutoSize = new bool(); *AutoSize = true;
         BorderStyle = BorderStyle::None;
         ForegroundColor = new Graphics::Color();
         BackgroundColor = new Graphics::Color();
-        Text = new std::string();
+        TextSize = new int(); *TextSize = 20;
+        Text = new std::string(); *Text = "";
         TextAllign = TextAllign::TopLeft;
     }
 
@@ -121,10 +125,10 @@ namespace Forms
 
     void Label::Draw() {
         assignedTextRenderer->SetRendererColor(ForegroundColor);
-        SDL_Rect* dst = new SDL_Rect();
+        auto *dst = new SDL_Rect();
         dst->x = *Location->x;
         dst->y = *Location->y;
-        SDL_Texture* texture = assignedTextRenderer->CreateTextTexture(*Text, dst);
+        SDL_Texture* texture = assignedTextRenderer->CreateTextTexture(*Text, dst, *TextSize);
         assignedRenderer->SetColor(BackgroundColor);
         if(!*AutoSize) {
             switch (TextAllign) {
@@ -188,22 +192,21 @@ namespace Forms
         assignedTextRenderer = textRenderer;
         Location = new Containers::Vector2;
         Size = new Containers::Vector2;
-        AutoSize = new bool();
+        AutoSize = new bool(); *AutoSize = true;
         BorderStyle = BorderStyle::None;
         ForegroundColor = new Graphics::Color();
         BackgroundColor = new Graphics::Color();
-        Text = new std::string();
+        Text = new std::string(); *Text = "";
         TextAllign = TextAllign::TopLeft;
+        TextSize = new int(); *TextSize = 20;
         OnClick = &Events::BasicEventsAliases::MouseClickEvent;
         OnEnter = &Events::BasicEventsAliases::MouseMotionEvent;
         OnMove = &Events::BasicEventsAliases::MouseMotionEvent;
         OnLeft = &Events::BasicEventsAliases::MouseMotionEvent;
         OnMouseDown = &Events::BasicEventsAliases::MouseClickEvent;
         OnMouseUp = &Events::BasicEventsAliases::MouseClickEvent;
-        isMouseInside = new bool();
-        isClicked = new bool();
-        *isMouseInside = false;
-        *isClicked = false;
+        isMouseInside = new bool(); *isMouseInside = false;
+        isClicked = new bool(); *isClicked = false;
     }
 
     bool Button::IsMouseInside(Containers::Vector2 *position) {
@@ -266,7 +269,7 @@ namespace Forms
         auto* dst = new SDL_Rect();
         dst->x = *Location->x;
         dst->y = *Location->y;
-        SDL_Texture* texture = assignedTextRenderer->CreateTextTexture(*Text, dst);
+        SDL_Texture* texture = assignedTextRenderer->CreateTextTexture(*Text, dst, *TextSize);
 
         if(!*AutoSize) {
             switch (TextAllign) {

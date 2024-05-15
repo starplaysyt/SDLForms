@@ -6,7 +6,8 @@
 #define IOWNER_H
 
 class IOwner {
-
+protected:
+    virtual void StartWindowLoop() { };
 };
 
 #endif //IOWNER_H

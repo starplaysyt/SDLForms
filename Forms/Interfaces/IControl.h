@@ -7,14 +7,13 @@
 
 #pragma once
 
-#include "../Events/MouseEventType.h"
-#include "../Events/MouseEventArgs.h"
 #include "IOwner.h"
 #include "SDL.h"
+#include "../../Containers/Vector2.h"
 
 namespace Forms {
 
-    class IControl {
+    class IControl { //it's unnessesary to initialize something here. Check docs and structure
 
     public:
         virtual void Draw() {}

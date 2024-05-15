@@ -36,7 +36,7 @@ void TextRenderer::SetRendererColor(Graphics::Color *color) {
     ForegroundColor = color;
 }
 
-SDL_Texture *TextRenderer::CreateTextTexture(std::string text, SDL_Rect *dst) {
+SDL_Texture *TextRenderer::CreateTextTexture(const std::string &text, SDL_Rect *dst, int size) {
     if (!*isFontOpened) {
         std::cout << "Font File is not loaded."; //TODO: Make standard error output
         return nullptr;
@@ -47,9 +47,10 @@ SDL_Texture *TextRenderer::CreateTextTexture(std::string text, SDL_Rect *dst) {
     RpcColor->g = ForegroundColor->g;
     RpcColor->b = ForegroundColor->b;
     RpcColor->a = ForegroundColor->a;
+    TTF_SetFontSize(TextFont, size);
     SDL_Surface *surf = TTF_RenderUTF8_Blended(TextFont, text.c_str(), *RpcColor);
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer->GetSDLRenderer(), surf);
-    if (texture == 0){
+    if (texture == nullptr){
         TTF_Quit();
         SDL_Quit();
         std::cout << "Failed to create texture. Quitting...";

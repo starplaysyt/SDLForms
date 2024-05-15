@@ -33,10 +33,10 @@ namespace Graphics {
         TextRenderer(Renderer *renderer, SDL_Window *window);
 
         /*
-         * Creates texture with text.
+         * Creates texture with text with special size.
          * Use with PasteTextTexture.
          */
-        SDL_Texture* CreateTextTexture(std::string text, SDL_Rect* dst);
+        SDL_Texture* CreateTextTexture(const std::string &text, SDL_Rect* dst, int size);
 
         /*
          * Pastes texture with text into renderers' buffer.
@@ -45,6 +45,7 @@ namespace Graphics {
          */
         void PasteTextTexture(SDL_Texture* texture, SDL_Rect* dst);
 
+        //TODO: Remove info bout constant text size, if there is some. No more actual.
 
         ~TextRenderer();
 

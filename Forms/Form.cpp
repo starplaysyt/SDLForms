@@ -21,13 +21,13 @@ void Form::StartWindowLoop()  { //starting loop sector
             if(e->type == SDL_QUIT) *doClosing = true;
             EventCheckup(e->type, e);
             //IM HIDING!
-            for (int i = Controls->size()-1; i >= 0; i--) { //DO NOT FUCKN CHANGE INT TO LONG! CAUSE STUPID ERROR, DEVS WAS DRUNK
+            for (int i = Controls->size()-1; i >= 0; i--) { //DO NOT FUCKN' CHANGE INT TO unsinged long long OR DERIVATIVES! CAUSE STUPID ERROR, DEVS WAS DRUNK
                 if (Controls->at(i)->IsMouseInside(mousePosition) && isFrontMostObjectFound == false) {
                     isFrontMostObjectFound = true;
-                    Controls->at(i)->EventCheckup(e->type, e);
+                    Controls->at(i)->EventCheckup(e->type, e); //I know, we can simply give this function SDL_Event var only, but it's way too smart, so we use it as it is
                 }
                 else {
-                    Controls->at(i)->EventCheckup(0, e);
+                    Controls->at(i)->EventCheckup(0, e); //Oh, i forgot bout that, we use two vars to send info 'bout zero-event, or other event stuff. As Todd Howard said: "It's just works"
                 }
             }
             //HERE I AM!
@@ -45,6 +45,7 @@ void Form::StartWindowLoop()  { //starting loop sector
 
         //TODO:Make changeable target FPS(hz)
 
+        //WARNING! SMART SHIT FORWARD! BEWARE OF EMOTIONAL DAMAGE! Ok, it's not very funny. We just use hypersonic trans-singulary alpha-beta-combiner to control apps' framerate
         if (work_time.count() < 17.0) //5hz(FPS) = 200ms delay sAs 60hz = 17 ms delay
         {
             std::chrono::duration<double, std::milli> delta_ms(17.0 - work_time.count());
@@ -65,21 +66,24 @@ void Form::StartWindowLoop()  { //starting loop sector
     std::cout << "Form.cpp >> Rendering Loop Stopped. Closeup action issued?" << std::endl;
 }
 
-Form::Form(const std::string& title, Containers::Vector2 *position, Containers::Vector2 *size) { //parametrized constructor
+//TODO: You need to train that bitch for you. Won't work without some punishment
+
+Form::Form() { //parametrized constructor
     TTF_Init();
-    this->Location = position;
-    this->Size = size;
-    this->title = title;
+    Location = new Containers::Vector2(100,100);
+    Size = new Containers::Vector2(400,300);
+    Title = new std::string();
+    *Title = "SDLForms Application Window";
 
     doClosing = new bool();
     *doClosing = false;
 
-    window = SDL_CreateWindow(title.c_str(), *position->x, *position->y, *size->x, *size->y, 0);
+    window = SDL_CreateWindow(Title->c_str(), *Location->x, *Location->y, *Size->x, *Size->y, 0);
     sdlRenderer = SDL_CreateRenderer(window, -1, 0);
     SDL_SetRenderDrawBlendMode(sdlRenderer, SDL_BLENDMODE_BLEND);
     renderer = new Graphics::Renderer(sdlRenderer, window);
     textRenderer = new Graphics::TextRenderer(renderer, window);
-    textRenderer->OpenFontFile("font.ttf", 24);
+    textRenderer->OpenFontFile("font.ttf", 12);
 
     Controls = new std::vector<IControl*>();
 

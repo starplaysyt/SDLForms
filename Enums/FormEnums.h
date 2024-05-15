@@ -17,4 +17,10 @@ namespace TextAllign {
     };
 }
 
+namespace WindowStyle {
+    enum WindowStyleEnum {
+
+    };
+}
+
 #endif //SDLFORMS_FORMENUMS_H

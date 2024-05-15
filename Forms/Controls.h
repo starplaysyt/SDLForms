@@ -3,15 +3,13 @@
 //
 
 #pragma once
-#include "IControl.h"
+#include "Interfaces/IControl.h"
 #include "../Enums/FormEnums.h"
 #include "../Containers/Vector2.h"
 #include "../Graphics/Renderer.h"
 #include "../Graphics/ColorManager.h"
 #include "../Graphics/TextRenderer.h"
-#include "../Events/MouseEventArgs.h"
-#include "../Events/MouseEventType.h"
-#include "IOwner.h"
+#include "Interfaces/IOwner.h"
 
 
 #ifndef SDLFORMS_CONTROLS_H
@@ -83,7 +81,7 @@ namespace Forms {
         Graphics::Color *ForegroundColor;
         std::string *Text;
         TextAllign::TextAllignEnum TextAllign;
-
+        int* TextSize;
         Label(Graphics::Renderer *renderer, Graphics::TextRenderer *textRenderer);
 
         ~Label();
@@ -123,6 +121,7 @@ namespace Forms {
         Graphics::Color *ForegroundColor;
         std::string *Text;
         TextAllign::TextAllignEnum TextAllign;
+        int *TextSize;
 
         Button(Graphics::Renderer *renderer, Graphics::TextRenderer *textRenderer);
 

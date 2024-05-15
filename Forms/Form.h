@@ -6,9 +6,9 @@
 #include <SDL.h>
 #include "../Graphics/Renderer.h"
 #include "../Graphics/TextRenderer.h"
-#include "IControl.h"
+#include "Interfaces/IControl.h"
 #include "Controls.h"
-#include "IOwner.h"
+#include "Interfaces/IOwner.h"
 #include "../Graphics/ColorManager.h"
 #include <vector>
 #include <thread>
@@ -26,11 +26,15 @@ namespace Forms{
 
         void StartWindowLoop();
 
+        //#region StateVarsRegion
+
         bool *doClosing;
+
+        //#endregion
 
         Containers::Vector2 *Location;
         Containers::Vector2 *Size;
-        std::string title;
+        std::string* Title;
 
         Graphics::Color *BackgroundColor;
 
@@ -39,7 +43,7 @@ namespace Forms{
 
         std::vector<IControl*> *Controls;
 
-        Form(const std::string& title, Containers::Vector2 *position, Containers::Vector2 *size);
+        Form();
 
         ~Form();
 

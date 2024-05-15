@@ -6,8 +6,7 @@
 
 namespace UserEvents {
     void button1_OnClick(Forms::IControl *sender, SDL_MouseButtonEvent args) {
-        //TestForm1 *owner = (TestForm1*)sender->owner;
-        std::cout << "CLICKED!" << std::endl;
+        
     }
 
     void button1_OnEnter(Forms::IControl *sender, SDL_MouseMotionEvent args) {
@@ -27,12 +26,13 @@ namespace UserEvents {
     }
 
     void button1_OnMouseUp(Forms::IControl *sender, SDL_MouseButtonEvent args) {
-        std::cout << "Up" << (int)args.button << std::endl;
-
+        std::cout << "Up" << static_cast<int>(args.button) << std::endl;
     }
 }
 
 void TestForm1::InitializeComponent() {
+
+
     rect1 = new Forms::Rectangle(renderer);
     rect1->Location->Fill(100,100);
     rect1->Size->Fill(100,100);
@@ -55,6 +55,7 @@ void TestForm1::InitializeComponent() {
     label->BackgroundColor->SetColor(0,255,255,255);
     label->ForegroundColor->SetColor(0,0,0,255);
     *label->AutoSize = true;
+    *label->TextSize = 30;
     label->TextAllign = TextAllign::TopRight;
     *label->Text = "test";
     AddControl(label);
