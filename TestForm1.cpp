@@ -31,7 +31,9 @@ namespace UserEvents {
 }
 
 void TestForm1::InitializeComponent() {
-
+    Location->Fill(100, 100);
+    Size->Fill(500, 400);
+    *Title = "300";
 
     rect1 = new Forms::Rectangle(renderer);
     rect1->Location->Fill(100,100);
@@ -63,7 +65,7 @@ void TestForm1::InitializeComponent() {
     button = new Forms::Button(renderer, textRenderer);
     button->Location->Fill(100,100);
     button->Size->Fill(120, 120);
-    button->BackgroundColor->SetColor(0,255,0,255);
+    button->BackgroundColor->SetColor(0,255,0,100);
     button->ForegroundColor->SetColor(0,0,0,255);
     *button->AutoSize = false;
     button->TextAllign = TextAllign::TopRight;
@@ -76,6 +78,17 @@ void TestForm1::InitializeComponent() {
     button->OnMouseDown = &UserEvents::button1_OnMouseDown;
     button->OnMouseUp = &UserEvents::button1_OnMouseUp;
     AddControl(button);
+
+    textbox1 = new Forms::TextBox(renderer, textRenderer);
+    textbox1->Location->Fill(200,200);
+    textbox1->Size->Fill(20,20);
+    textbox1->BackgroundColor->SetColor(0,255,0,100);
+    textbox1->ForegroundColor->SetColor(0,0,0,255);
+    *textbox1->AutoSize = true;
+    textbox1->TextAllign = TextAllign::TopLeft;
+    *textbox1->Text = "area";
+    textbox1->BorderStyle = BorderStyle::None;
+    AddControl(textbox1);
 }
 
 void TestForm1::Close() {

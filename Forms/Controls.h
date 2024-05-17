@@ -33,8 +33,6 @@ namespace Forms {
 
         Rectangle(Graphics::Renderer *renderer);
 
-
-
         ~Rectangle();
 
     private:
@@ -133,6 +131,49 @@ namespace Forms {
         Graphics::Renderer *assignedRenderer;
         Graphics::TextRenderer *assignedTextRenderer;
 
+    };
+
+    class TextBox : public IControl {
+    public:
+        void Draw() override;
+
+        void EventCheckup(Uint32 type, SDL_Event *event) override;
+
+        bool IsMouseInside(Containers::Vector2 *position) override;
+
+        void (*OnClick) (IControl*, SDL_MouseButtonEvent) { };
+
+        void (*OnEnter) (IControl*, SDL_MouseMotionEvent) { };
+
+        void (*OnMove) (IControl*, SDL_MouseMotionEvent) { };
+
+        void (*OnLeft) (IControl*, SDL_MouseMotionEvent) { };
+
+        void (*OnMouseDown) (IControl*, SDL_MouseButtonEvent) { };
+
+        void (*OnMouseUp) (IControl*, SDL_MouseButtonEvent) { };
+
+    public:
+        Containers::Vector2 *Location;
+        Containers::Vector2 *Size;
+        bool *AutoSize;
+        BorderStyle::BorderStyleEnum BorderStyle;
+        Graphics::Color *BackgroundColor;
+        Graphics::Color *ForegroundColor;
+        std::string *Text;
+        TextAllign::TextAllignEnum TextAllign;
+        int* TextSize;
+        TextBox(Graphics::Renderer *renderer, Graphics::TextRenderer *textRenderer);
+
+        ~TextBox();
+
+    private:
+        Graphics::Renderer *assignedRenderer;
+        Graphics::TextRenderer *assignedTextRenderer;
+        bool *isMouseInside;
+        bool *isInputStarted;
+        bool *isSelected;
+        //TODO:: CREATE AND ABLOAGLE TEXTBOX CONTROL
     };
 
 

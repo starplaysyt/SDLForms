@@ -2,8 +2,43 @@
 
 using namespace Forms;
 
+void Form::InternalInitializeComponent() {
+    SDL_SetWindowPosition(window, *Location->x, *Location->y);
+    SDL_SetWindowSize(window, *Size->x, *Size->y);
+    SDL_SetWindowTitle(window, Title->c_str());
+}
+
+Form::Form() { //parametrized constructor
+    SDL_Init(SDL_INIT_EVERYTHING);
+    TTF_Init();
+    Location = new Containers::Vector2(100,100);
+    Size = new Containers::Vector2(400,300);
+    Title = new std::string();
+    *Title = "SDLForms Application Window";
+
+    DoClosing = new bool();
+    *DoClosing = false;
+
+    window = SDL_CreateWindow(Title->c_str(), *Location->x, *Location->y, *Size->x, *Size->y, 0);
+    sdlRenderer = SDL_CreateRenderer(window, -1, 0);
+    SDL_SetRenderDrawBlendMode(sdlRenderer, SDL_BLENDMODE_BLEND);
+    renderer = new Graphics::Renderer(sdlRenderer, window);
+    textRenderer = new Graphics::TextRenderer(renderer, window);
+    textRenderer->OpenFontFile("font.ttf", 12);
+
+    Controls = new std::vector<IControl*>();
+
+    BackgroundColor = new Graphics::Color();
+    BackgroundColor->SetColor(Graphics::Black);
+
+    std::cout << "Form.cpp >>> Parent Form Initialization completed." << std::endl;
+}
+
 void Form::StartWindowLoop()  { //starting loop sector
     std::cout << "Form.cpp >> Rendering Loop Started." << std::endl;
+
+    InternalInitializeComponent();
+    std::cout << "Form.cpp >> Form internal initialization completed." << std::endl;
     auto *e = new SDL_Event();
     std::chrono::system_clock::time_point startPoint = std::chrono::system_clock::now(); //IS CODE IN WHILE A JOKE FOR YOU?
     std::chrono::system_clock::time_point endPoint = std::chrono::system_clock::now(); //IS CODE IN WHILE A JOKE FOR YOU?
@@ -11,14 +46,15 @@ void Form::StartWindowLoop()  { //starting loop sector
     std::chrono::system_clock::time_point FPSTracerStart = std::chrono::system_clock::now();
     size_t midCD = 1;
 
-    while (!*doClosing) {
+    while (!*DoClosing) {
         PTi++;
         startPoint =  std::chrono::system_clock::now();
+
         while (SDL_PollEvent(e) != 0) {
             auto *mousePosition = new Containers::Vector2();
             SDL_GetMouseState(mousePosition->x, mousePosition->y);
             bool isFrontMostObjectFound = false;
-            if(e->type == SDL_QUIT) *doClosing = true;
+            if(e->type == SDL_QUIT) *DoClosing = true;
             EventCheckup(e->type, e);
             //IM HIDING!
             for (int i = Controls->size()-1; i >= 0; i--) { //DO NOT FUCKN' CHANGE INT TO unsinged long long OR DERIVATIVES! CAUSE STUPID ERROR, DEVS WAS DRUNK
@@ -64,33 +100,6 @@ void Form::StartWindowLoop()  { //starting loop sector
     }
     delete e;
     std::cout << "Form.cpp >> Rendering Loop Stopped. Closeup action issued?" << std::endl;
-}
-
-//TODO: You need to train that bitch for you. Won't work without some punishment
-
-Form::Form() { //parametrized constructor
-    TTF_Init();
-    Location = new Containers::Vector2(100,100);
-    Size = new Containers::Vector2(400,300);
-    Title = new std::string();
-    *Title = "SDLForms Application Window";
-
-    doClosing = new bool();
-    *doClosing = false;
-
-    window = SDL_CreateWindow(Title->c_str(), *Location->x, *Location->y, *Size->x, *Size->y, 0);
-    sdlRenderer = SDL_CreateRenderer(window, -1, 0);
-    SDL_SetRenderDrawBlendMode(sdlRenderer, SDL_BLENDMODE_BLEND);
-    renderer = new Graphics::Renderer(sdlRenderer, window);
-    textRenderer = new Graphics::TextRenderer(renderer, window);
-    textRenderer->OpenFontFile("font.ttf", 12);
-
-    Controls = new std::vector<IControl*>();
-
-    BackgroundColor = new Graphics::Color();
-    BackgroundColor->SetColor(Graphics::Black);
-
-    std::cout << "Form.cpp >>> Parent Form Initialization completed." << std::endl;
 }
 
 void Form::AddControl(IControl *control) {

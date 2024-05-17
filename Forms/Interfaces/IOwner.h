@@ -4,6 +4,7 @@
 
 #ifndef IOWNER_H
 #define IOWNER_H
+#include "IControl.h"
 
 class IOwner {
 protected:

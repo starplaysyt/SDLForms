@@ -9,8 +9,8 @@ using namespace Containers;
 using namespace std;
 
 int main() {
-
-    TestForm1 *form = new TestForm1("test", new Vector2(100,100), new Vector2(300,300));
+    setlocale(0,"");
+    TestForm1 *form = new TestForm1();
     std::cout << "main.cpp >>> Child Form Object Creating completed." << std::endl;
 
     form->StartWindowLoop();

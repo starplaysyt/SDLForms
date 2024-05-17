@@ -20,15 +20,17 @@ namespace Forms{
     private:
         SDL_Renderer *sdlRenderer;
         SDL_Window *window;
+        void InternalInitializeComponent();
 
     public:
         void AddControl(IControl* control);
 
-        void StartWindowLoop();
+        void StartWindowLoop() final;
 
         //#region StateVarsRegion
 
-        bool *doClosing;
+        bool *DoClosing;
+
 
         //#endregion
 
@@ -42,6 +44,12 @@ namespace Forms{
         Graphics::TextRenderer *textRenderer;
 
         std::vector<IControl*> *Controls;
+
+        //#region ControlStateVarsRegion
+
+        IControl *selectedObject;
+
+        //#endregion
 
         Form();
 

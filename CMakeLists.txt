@@ -21,7 +21,6 @@ add_executable(SDLForms main.cpp
         Graphics/TextRenderer.cpp
         Graphics/TextRenderer.h
         Enums/FormEnums.h
-        Events/MouseMoveEventArgs.h
         Forms/Interfaces/IOwner.h
         Events/BasicEventsAliases.h
 )

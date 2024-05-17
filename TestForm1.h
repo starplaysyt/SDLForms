@@ -5,7 +5,6 @@
 #ifndef SDLFORMS_TESTFORM1_H
 #define SDLFORMS_TESTFORM1_H
 
-#pragma once
 #include "Forms/Form.h"
 #include "Forms/Controls.h"
 #include "iostream"
@@ -16,11 +15,12 @@ class TestForm1 : public Forms::Form  {
         Forms::Circle *circle1;
         Forms::Label *label;
         Forms::Button *button;
+        Forms::TextBox *textbox1;
 
     public:
         void InitializeComponent();
 
-        TestForm1(std::string _title, Containers::Vector2* _position, Containers::Vector2* _size) : Forms::Form(){
+        TestForm1() : Forms::Form(){
             InitializeComponent();
             std::cout << "TestForm.h >>> Child Form Initialization completed." << std::endl;
         }

@@ -50,12 +50,12 @@ SDL_Texture *TextRenderer::CreateTextTexture(const std::string &text, SDL_Rect *
     TTF_SetFontSize(TextFont, size);
     SDL_Surface *surf = TTF_RenderUTF8_Blended(TextFont, text.c_str(), *RpcColor);
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer->GetSDLRenderer(), surf);
-    if (texture == nullptr){
-        TTF_Quit();
-        SDL_Quit();
-        std::cout << "Failed to create texture. Quitting...";
-        return nullptr;
-    }
+    // if (texture == nullptr){
+    //     TTF_Quit();
+    //     SDL_Quit();
+    //     std::cout << "Failed to create texture. Quitting...";
+    //     return nullptr;
+    // }
     SDL_FreeSurface(surf);
     Uint32 *format = new Uint32();
     int *access = new int();
