@@ -57,7 +57,7 @@ void Form::StartWindowLoop()  { //starting loop sector
             if(e->type == SDL_QUIT) *DoClosing = true;
             EventCheckup(e->type, e);
             //IM HIDING!
-            for (int i = Controls->size()-1; i >= 0; i--) { //DO NOT FUCKN' CHANGE INT TO unsinged long long OR DERIVATIVES! CAUSE STUPID ERROR, DEVS WAS DRUNK
+            for (int i = Controls->size()-1; i >= 0; i--) { //DO NOT <CENSORED> CHANGE INT TO unsinged long long OR DERIVATIVES! CAUSE STUPID ERROR, DEVS WAS DRUNK
                 if (Controls->at(i)->IsMouseInside(mousePosition) && isFrontMostObjectFound == false) {
                     isFrontMostObjectFound = true;
                     Controls->at(i)->EventCheckup(e->type, e); //I know, we can simply give this function SDL_Event var only, but it's way too smart, so we use it as it is
@@ -81,7 +81,7 @@ void Form::StartWindowLoop()  { //starting loop sector
 
         //TODO:Make changeable target FPS(hz)
 
-        //WARNING! SMART SHIT FORWARD! BEWARE OF EMOTIONAL DAMAGE! Ok, it's not very funny. We just use hypersonic trans-singulary alpha-beta-combiner to control apps' framerate
+        //WARNING! SMART <CENSORED> FORWARD! BEWARE OF EMOTIONAL DAMAGE! Ok, it's not very funny. We just use hypersonic trans-singulary alpha-beta-combiner to control apps' framerate
         if (work_time.count() < 17.0) //5hz(FPS) = 200ms delay sAs 60hz = 17 ms delay
         {
             std::chrono::duration<double, std::milli> delta_ms(17.0 - work_time.count());

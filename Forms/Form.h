@@ -62,7 +62,7 @@ namespace Forms{
 
     //TODO: Make getter and setter for Location and Size
 
-    //DONE: Move that shit to more likely place
+    //DONE: Move that <CENSORED> to more likely place
 }
 
 #endif

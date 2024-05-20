@@ -5,7 +5,7 @@
 #include "Controls.h"
 
 #include "Form.h"
-#include "../Events/BasicEventsAliases.h" //Totaly unknown why this happens, but it doesnt work without this. Maybe it's cos of function pointers' shitty work
+#include "../Events/BasicEventsAliases.h" //Totaly unknown why this happens, but it doesnt work without this. Maybe it's cos of function pointers' <CENSORED> work
 
 namespace Forms
 {
@@ -224,7 +224,7 @@ namespace Forms
             case 0: //nullevent code designed for leaving/not-encountered events or stuff
                 if (*isMouseInside) {
                     *isMouseInside = false;
-                    if(event->type == SDL_MOUSEMOTION) OnLeft(this, event->motion); //idk what shit should happen for this checkup worked
+                    if(event->type == SDL_MOUSEMOTION) OnLeft(this, event->motion); //idk what <CENSORED> should happen for this checkup worked
                 }
                 if (*isClicked) {
                     *isClicked = false;
@@ -250,7 +250,7 @@ namespace Forms
                 break;
             default:
                 std::cout << "Button " << *Text << " >>> Unhandled event happened. It's not supported by the way." << std::endl;
-                //TODO: REMOVE FUCKING SHIT, IT IS FUCKING WRONG(stupid cocksucker, it's designed for act like that, though)
+                //TODO: REMOVE <CENSORED> <CENSORED>, IT IS <CENSORED> WRONG(stupid <CENSORED>, it's designed for act like that, though)
                 //UTODO: It should work like that
                 break;
         }
@@ -263,9 +263,9 @@ namespace Forms
             assignedRenderer->SetColor(ForegroundColor);
             assignedTextRenderer->SetRendererColor(BackgroundColor);
         }
+
         if (*isClicked) {
-            assignedRenderer->SetColor(Graphics::ColorManager::GetColor(Graphics::Green));
-            assignedTextRenderer->SetRendererColor(Graphics::ColorManager::GetColor(Graphics::White));
+            Location->Fill(*Location->x+2, *Location->y+2);
         }
 
         auto* dst = new SDL_Rect();
@@ -311,9 +311,11 @@ namespace Forms
             *Size->x = dst->w;
             *Size->y = dst->h;
         }
+
+
         assignedRenderer->FillRect(Location, Size);
         if (BorderStyle == BorderStyle::FixedSingle) {
-            assignedRenderer->SetColor(ForegroundColor);
+            assignedRenderer->SetColor(*isMouseInside ? BackgroundColor : ForegroundColor);
             assignedRenderer->DrawRect(Location, Size);
         }
         assignedTextRenderer->PasteTextTexture(texture, dst);
@@ -322,6 +324,9 @@ namespace Forms
 
         SDL_DestroyTexture(texture);
         delete dst;
+        if (*isClicked) {
+            Location->Fill(*Location->x-2, *Location->y-2);
+        }
     }
 
     Button::~Button() {
@@ -375,43 +380,47 @@ namespace Forms
                 if (event->type == SDL_MOUSEBUTTONDOWN && event->button.button == 1) { //stops text entering when user clicks LMB outside the bounds of control
                     *isInputStarted = false;
                     SDL_StopTextInput();
-                    std::cout << "Input stopped" << std::endl;
+                    //std::cout << "Input stopped" << std::endl;
                 }
                 if (event->type == SDL_TEXTINPUT && *isInputStarted == true) { //happens when user is inputting text outside bounds of Textbox
-                    std::cout << "Inputted text: " << event->text.text << std::endl;
+                    //std::cout << "Inputted text: " << event->text.text << std::endl;
                     Text->append(event->text.text);
                 }
                 if (event->type == SDL_KEYDOWN && *isInputStarted == true) {
                     switch (event->key.keysym.sym) {
                         case SDLK_BACKSPACE: //for text-deletion to work properly, some fuck
-                            Text->erase(Text->length()-1);
+                            if (Text->length() == 1) *Text = " ";
+                            else Text->erase(Text->length()-1);
                             break;
                     }
+                    if (*Text == " " && event->key.keysym.sym != SDLK_BACKSPACE) *Text = "";
                 }
             break;
             case SDL_KEYDOWN:
-                std::cout << "FUCK, Baby!";
+                //std::cout << "FUCK, Baby!";
                 if(*isInputStarted) {
-                    std::cout << "FUCK, Babe!";
+                    //std::cout << "FUCK, Babe!";
                     switch (event->key.keysym.sym) {
                         case SDLK_BACKSPACE:
-                            std::cout << "FCUKKCKCKC";
-                            Text->erase(Text->length()-1);
+                            //std::cout << "FCUKKCKCKC";
+                            if (Text->length() == 1) *Text = " ";
+                            else Text->erase(Text->length()-1);
                         break;
                         case SDLK_0:
                             Text->append("\n");
                         break;
                     }
+                    if (*Text == " " && event->key.keysym.sym != SDLK_BACKSPACE) *Text = "";
                 }
                 break;
             case SDL_KEYUP:
                 break;
             case SDL_TEXTEDITING:
-                std::cout << "Inputted_E text: " << event->text.text << std::endl;
+                //std::cout << "Inputted_E text: " << event->text.text << std::endl;
                 break;
             case SDL_TEXTINPUT:
                 if (*isInputStarted) {
-                    std::cout << "Inputted text: " << event->text.text << std::endl;
+                    //std::cout << "Inputted text: " << event->text.text << std::endl;
                     Text->append(event->text.text);
                 }
             break;
@@ -427,7 +436,7 @@ namespace Forms
                     OnClick(this, event->button);
                 }
                 else {
-                    std::cout << "Input started" << std::endl;
+                    //std::cout << "Input started" << std::endl;
                     SDL_StartTextInput();
                     *isInputStarted = true;
                 }
@@ -443,7 +452,7 @@ namespace Forms
             break;
             default:
                 std::cout << "Button " << *Text << " >>> Unhandled event happened. It's not supported by the way." << std::endl;
-            //TODO: REMOVE FUCKING SHIT, IT IS FUCKING WRONG(stupid cocksucker, it's designed for act like that, though)
+            //TODO: REMOVE <CENSORED> <CENSORED>, IT IS <CENSORED> WRONG(stupid <CENSORED>, it's designed for act like that, though)
             //UTODO: It should work like that
             break;
         }

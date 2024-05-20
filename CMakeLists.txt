@@ -25,6 +25,24 @@ add_executable(SDLForms main.cpp
         Events/BasicEventsAliases.h
 )
 
+#add_library(SDLForms SHARED
+#        Forms/Form.cpp
+#        Forms/Form.h
+#        Containers/Vector2.h
+#        Graphics/Renderer.cpp
+#        Graphics/Renderer.h
+#        Graphics/ColorManager.cpp
+#        Graphics/ColorManager.h
+#        Forms/Controls.cpp
+#        Forms/Controls.h
+#        Forms/Interfaces/IControl.h
+#        Graphics/TextRenderer.cpp
+#        Graphics/TextRenderer.h
+#        Enums/FormEnums.h
+#        Forms/Interfaces/IOwner.h
+#        Events/BasicEventsAliases.h
+#)
+
 if (WIN32)
     set(SDL2_INCLUDE_DIR "${CMAKE_CURRENT_LIST_DIR}/vendor/SDL2-2.30.3/include")
     set(SDL2_LIBRARY_DIR "${CMAKE_CURRENT_LIST_DIR}/vendor/SDL2-2.30.3/lib/x64")

@@ -6,7 +6,8 @@
 
 namespace UserEvents {
     void button1_OnClick(Forms::IControl *sender, SDL_MouseButtonEvent args) {
-        
+        auto *parent = (TestForm1*)sender->owner;
+        *parent->circle1->Radius += 10;
     }
 
     void button1_OnEnter(Forms::IControl *sender, SDL_MouseMotionEvent args) {
@@ -69,7 +70,7 @@ void TestForm1::InitializeComponent() {
     button->ForegroundColor->SetColor(0,0,0,255);
     *button->AutoSize = false;
     button->TextAllign = TextAllign::TopRight;
-    *button->Text = "testFUCK";
+    *button->Text = "testBUTTON";
     button->BorderStyle = BorderStyle::FixedSingle;
     button->OnClick = &UserEvents::button1_OnClick;
     button->OnEnter = &UserEvents::button1_OnEnter;
@@ -81,7 +82,7 @@ void TestForm1::InitializeComponent() {
 
     textbox1 = new Forms::TextBox(renderer, textRenderer);
     textbox1->Location->Fill(200,200);
-    textbox1->Size->Fill(20,20);
+    textbox1->Size->Fill(100,20);
     textbox1->BackgroundColor->SetColor(0,255,0,100);
     textbox1->ForegroundColor->SetColor(0,0,0,255);
     *textbox1->AutoSize = true;
